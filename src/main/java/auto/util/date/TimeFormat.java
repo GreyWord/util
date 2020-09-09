@@ -9,8 +9,8 @@ public class TimeFormat {
     /**
      * 通用的yyyy-MM-dd HH:mm:ss.SSS的格式
      */
-    public static String now(String source,long l){
-        return String.format(FormatType.convert(source),l);
+    public static String format(String source,long l){
+        return String.format(DateType.convert(source),l);
     }
     /**
      * %tF: yyyy-MM-dd<br/>
@@ -23,29 +23,29 @@ public class TimeFormat {
      * %tm: MM<br/>
      * %td: dd<br/>
      */
-    public static String javaFormat(FormatType type){
-        return format(type.pattern,System.currentTimeMillis());
+    public static String now(DateType type){
+        return jFormat(type.pattern,System.currentTimeMillis());
     }
-    public static String format(FormatType type,long l){
-        return format(type.pattern,l);
+    public static String jFormat(DateType type, long l){
+        return jFormat(type.pattern,l);
     }
-    public static String format(String pattern,long l){
+    public static String jFormat(String pattern, long l){
         return String.format(pattern,l);
     }
     public static String date(){
-        return javaFormat(FormatType.date);
+        return now(DateType.date);
     }
     public static String datetime(){
-        return javaFormat(FormatType.datetime);
+        return now(DateType.datetime);
     }
     public static String datetimeS(){
-        return javaFormat(FormatType.datetimes);
+        return now(DateType.datetimes);
     }
     public static String time(){
-        return javaFormat(FormatType.time);
+        return now(DateType.time);
     }
     public static String timeS(){
-        return javaFormat(FormatType.times);
+        return now(DateType.times);
     }
     public static synchronized String uniquetime(){
         long l = System.currentTimeMillis();
@@ -56,10 +56,10 @@ public class TimeFormat {
         count++;
         return String.format("%d%3d",lasttime,count);
     }
-    public enum FormatType{
+    public enum DateType {
         date("%tF"),datetime("%tF %<tT"),datetimes("%tF %<tT.%<tL"),time("%tT"),times("%tT.%<tL");
         private final String pattern;
-        FormatType(String pattern) {
+        DateType(String pattern) {
             this.pattern = pattern;
         }
         public static String convert(String source){
