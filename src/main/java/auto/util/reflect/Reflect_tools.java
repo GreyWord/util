@@ -99,8 +99,7 @@ public class Reflect_tools {
 		return field;
 	}
 
-	/**
-	 */
+	/**获取指定字段的数据类型 */
 	public static Class<?> getFieldTypeByName(Class<?> objclass, String fieldName){
 		Field field = getFieldByName(objclass, fieldName);
 		if(field==null)
@@ -135,7 +134,6 @@ public class Reflect_tools {
 	/**
 	 * 遍历obj内的属性及值，包括私有属性<br>
 	 * 即使属性值为空也返回<br>
-	 * @param obj
 	 * @return 属性名和属性值的键值对
 	 */
 	public static Map<String, Object> getValueTotalMap(Object obj){
@@ -154,8 +152,6 @@ public class Reflect_tools {
 	/**
 	 * 遍历obj内的属性及值，包括私有属性<br>
 	 * 属性值为空（null或""）时不返回<br>
-	 * 内部是HashMap<br>
-	 * @param obj
 	 * @return 属性名和属性值的键值对
 	 */
 	public static Map<String, String> getValueStringMap(Object obj){
@@ -176,8 +172,6 @@ public class Reflect_tools {
 	/**
 	 * 遍历obj内的属性及值，包括私有属性<br>
 	 * 属性值为空（null或""）时不返回<br>
-	 * 内部是HashMap<br>
-	 * @param obj
 	 * @return 属性名和属性值的键值对
 	 */
 	public static Map<String, Object> getValueMap(Object obj){
@@ -197,10 +191,7 @@ public class Reflect_tools {
 	}
 	
 	/**
-	 * 遍历objclass内的属性，包括私有属性<br>
-	 * 内部是HashMap<br>
-	 * @param objclass
-	 * @return 属性名和Field的键值对
+	 * 遍历objclass内的属性，包括私有属性，获取属性名和Field的键值对
 	 */
 	public static Map<String, Field> getfieldNameMap(Class<?> objclass){
 		Map<String, Field> hm = new HashMap<String, Field>();
@@ -213,10 +204,7 @@ public class Reflect_tools {
 	}
 	
 	/**
-	 * 遍历objclass内的属性，包括私有属性<br>
-	 * 内部是ArrayList<br>
-	 * @param objclass
-	 * @return 属性名的List表
+	 * 遍历objclass内的属性，包括私有属性，获取属性名的List表
 	 */
 	public static List<String> getfieldNameList(Class<?> objclass){
 		List<String> hs = new ArrayList<String>();
@@ -232,10 +220,7 @@ public class Reflect_tools {
 	
 	
 	/**
-	 * 内部是ArrayList的toArray<br>
-	 * @param objclass 信息存储类
-	 * @param type 查询数据类型
-	 * @return objclass类中是type子类的属性列表
+	 * 获取objclass类中是type子类的属性列表
 	 */
 	public static Set<String> getTypeSet(Class<?> objclass,Class<?> type){
 		
