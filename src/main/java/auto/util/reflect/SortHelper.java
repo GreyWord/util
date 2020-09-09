@@ -9,31 +9,31 @@ public class SortHelper {
 
     /**按第二个List的顺序，获取第一个List的对应字段并排序(如id)(注意id和实体必须唯一对应)
      * <br/>主要用于解决jpa FindByIDin入参和出参顺序不一致的问题*/
-    public static <A,B> List<A> sort(List<A> listA,List<B> listB){
-        return sort(listA,listB,"id");
+    public static <A,B> List<A> sort(List<A> list1,List<B> list2){
+        return sort(list1,list2,"id");
     }
-    public static <A,B> List<A> sort(List<A> listA,List<B> listB,String field){
-        Map<Object, A> map = toMap(listA, field);
+    public static <A,B> List<A> sort(List<A> list1,List<B> list2,String field){
+        Map<Object, A> map = toMap(list1, field);
         List<A> list = new ArrayList<>();
-        listB.forEach(key->list.add(map.get(key)));
+        list2.forEach(key->list.add(map.get(key)));
         return list;
     }
-    public static <A,B> List<A> sort(List<A> listA,List<B> listB,String fieldA,String fieldB){
-        return sort(listA,Reflect_tools.getFieldValueList(listB, fieldB),fieldA);
+    public static <A,B> List<A> sort(List<A> list1,List<B> list2,String field1,String field2){
+        return sort(list1,Reflect_tools.getFieldValueList(list2, field2),field1);
     }
 
     /**按照指定字段值去重*/
-    public static <A> List<A> distinct(List<A> listA,String fieldA){
-        return new ArrayList<>(toMap(listA,fieldA).values());
+    public static <A> List<A> distinct(List<A> list,String field){
+        return new ArrayList<>(toMap(list,field).values());
     }
-    /**listA的keyA和listB的keyB作为主键对应，把listA中fieldA的值改为listB中fieldB的值*/
-    public static <A,B> void change(List<A> listA,List<B> listB,String keyA,String keyB,String fieldA,String fieldB){
-        Map<Object, A> aMap = toMap(listA, keyA);
-        listB.forEach(obj->
+    /**list1的key1和list2的key2作为主键对应，把list1中field1的值改为list2中field2的值*/
+    public static <A,B> void change(List<A> list1,List<B> list2,String key1,String key2,String field1,String field2){
+        Map<Object, A> aMap = toMap(list1, key1);
+        list2.forEach(obj->
                 Reflect_tools.setFieldValue(
-                        aMap.get(Reflect_tools.getFieldValue(obj,keyB))
-                        ,fieldA
-                        ,Reflect_tools.getFieldValue(obj,fieldB)
+                        aMap.get(Reflect_tools.getFieldValue(obj,key2))
+                        ,field1
+                        ,Reflect_tools.getFieldValue(obj,field2)
                 )
         );
     }
