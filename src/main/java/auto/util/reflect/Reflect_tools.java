@@ -17,14 +17,12 @@ public class Reflect_tools {
 	
 	/**
 	 * 利用反射获取一个对象相应的属性值
-	 * @param obj 待获取对象
-	 * @param fieldName 字段名
 	 */
 	public static Object getFieldValue(Object obj, String fieldName){
 		if(Empty_tools.hasNULL(obj,fieldName))	return null;
 		return getFieldValue(obj, getFieldByName(obj.getClass(),fieldName));
 	}
-	private static Object getFieldValue(Object obj, Field field){
+	public static Object getFieldValue(Object obj, Field field){
 		if(Empty_tools.hasNULL(obj,field))	return null;
 		
 		Object value = null;
@@ -44,7 +42,7 @@ public class Reflect_tools {
 	public static void setFieldValue(Object obj, String fieldName, Object value){
 		setFieldValue(obj, getFieldByName(obj.getClass(),fieldName), value);
 	}
-	private static void setFieldValue(Object obj, Field field, Object value){
+	public static void setFieldValue(Object obj, Field field, Object value){
 		if(Empty_tools.hasNULL(value,obj,field)) return;
 		try {
 			//修改值
@@ -58,9 +56,6 @@ public class Reflect_tools {
 	/**
 	 * 修改 obj 的属性值<br>
 	 * 根据 hm 的内容配置<br>
-	 * @param obj 将配置的对象
-	 * @param hm 对象相应参数映射表
-	 * @return 设置过值的对象
 	 */
 	public static <T> T changeObjectByMap(T obj,Map<String, Object> hm){
 		if(hm!=null && hm.size()>0){
@@ -74,9 +69,6 @@ public class Reflect_tools {
 	/**
 	 * 根据 objclass 创建对象<br>
 	 * 根据 hashmap 的内容配置对象的属性值<br>
-	 * @param objclass 对象的类
-	 * @param hashmap 对象相应参数映射表
-	 * @return 设置过值的对象
 	 */
 	public static <T> T createObjectByMap(Class<T> objclass,Map<String, Object> hashmap){
 		T obj = null;
@@ -88,12 +80,10 @@ public class Reflect_tools {
 		}
 		return obj; 
 	}
-	
-	
-	/**
-	 * @param objclass 类
-	 * @param fieldName 字段名
-	 * @return Field 字段描述
+
+
+	/**获取Field对象
+	 * 存在继承关系时会递归调用
 	 */
 	public static Field getFieldByName(Class<?> objclass, String fieldName){
 		Field field = null;
@@ -110,9 +100,6 @@ public class Reflect_tools {
 	}
 
 	/**
-	 * @param objclass 类
-	 * @param fieldName 字段名
-	 * @return Field 字段描述
 	 */
 	public static Class<?> getFieldTypeByName(Class<?> objclass, String fieldName){
 		Field field = getFieldByName(objclass, fieldName);
@@ -125,8 +112,6 @@ public class Reflect_tools {
 	 * 其他属性会按次序排列显示，开头是简单类名<br>
 	 * 例如 Staff_info[ staff_id = 1, role_id = 2, staff_name = 小明]<br>
 	 * 在staff_id为空时，将显示Staff_info[ role_id = 2, staff_name = 小明]<br>
-	 * @param obj
-	 * @return 字符串表示
 	 */
 	public static String getInfo(Object obj){
 		StringBuilder info = new StringBuilder();

@@ -38,6 +38,7 @@ public class SortHelper {
         );
     }
 
+    /**根据指定field把list转化为映射关系，value值相同时只保留最后一个*/
     public static <A> Map<Object,A> toMap(List<A> list, String field){
         Map<Object,A> map = new LinkedHashMap<>();
         list.forEach(obj->{
